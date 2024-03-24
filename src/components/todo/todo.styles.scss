@@ -1,0 +1,10 @@
+.todo-container {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: rgb(223, 124, 124);
+  border-radius: 15%;
+}
+
+.todo-container.done {
+  background-color: rgb(109, 189, 109);
+}

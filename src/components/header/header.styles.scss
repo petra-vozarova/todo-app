@@ -1,0 +1,29 @@
+.nav-container {
+  position: fixed;
+  margin-top: 10px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 35px;
+    cursor: pointer;
+    margin: 0 35px;
+    color: black;
+  }
+  ul {
+    display: flex;
+    text-decoration: none;
+    gap: 30px;
+    padding-right: 30px;
+    color: black;
+
+    li {
+      cursor: pointer;
+      text-decoration: none;
+      list-style: none;
+      font-size: 25px;
+    }
+  }
+}

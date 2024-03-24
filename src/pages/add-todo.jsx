@@ -1,18 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../store/slices/todos-slice";
+import { addTodo, updateToDo } from "../store/slices/todos-slice";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AddToDo = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     status: "uncompleted",
     id: Math.floor(Math.random() * 1000),
   });
+  const [isEdit, setIsEdit] = useState(false);
+
   const addToDoHandler = () => {
-    dispatch(addTodo(formData));
+    if (!isEdit) {
+      dispatch(addTodo(formData));
+    } else {
+      dispatch(updateToDo(formData));
+    }
+
+    setIsEdit(false);
+    navigate("/");
   };
+
+  useEffect(() => {
+    if (location.state) {
+      setIsEdit(true);
+      const currentToDo = location.state.currentToDo;
+      setFormData({
+        title: currentToDo.title,
+        description: currentToDo.description,
+        status: currentToDo.status,
+        id: currentToDo.id,
+      });
+    }
+  }, [location]);
+
   return (
     <div>
       <h1>Add ToDo</h1>
@@ -24,6 +51,7 @@ const AddToDo = () => {
         onChange={(e) => {
           setFormData({ ...formData, title: e.target.value });
         }}
+        value={formData.title}
       ></input>
       <textarea
         name="description"
@@ -32,6 +60,7 @@ const AddToDo = () => {
         onChange={(e) => {
           setFormData({ ...formData, description: e.target.value });
         }}
+        value={formData.description}
       />
       <div className="radio">
         <label>
@@ -58,7 +87,9 @@ const AddToDo = () => {
           Uncompleted
         </label>
       </div>
-      <button onClick={addToDoHandler}>Add ToDo</button>
+      <button onClick={addToDoHandler}>
+        {isEdit ? "Edit ToDo" : "Add ToDo"}
+      </button>
     </div>
   );
 };

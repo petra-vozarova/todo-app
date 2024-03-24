@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import './header.styles.scss'
 
 const Header = () => {
   return (
     <div>
-      <nav>
+      <nav className="nav-container">
         <Link to={"/"}>
           <h1>ToDo App</h1>
         </Link>
