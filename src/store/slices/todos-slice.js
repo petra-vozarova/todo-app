@@ -12,13 +12,13 @@ const todosSlice = createSlice({
     },
     toggleTodo: (state, action) => {
       return state.map((todo) => {
-        if (todo.id !== action.payload) {
+        if (todo.id !== action.payload.id) {
           return todo;
         }
 
         return {
           ...todo,
-          completed: !todo.completed,
+          status: action.payload.status,
         };
       });
     },
@@ -39,5 +39,6 @@ const todosSlice = createSlice({
   },
 });
 
-export const { addTodo, removeTodo, toggleTodo, updateToDo } = todosSlice.actions;
+export const { addTodo, removeTodo, toggleTodo, updateToDo } =
+  todosSlice.actions;
 export default todosSlice.reducer;

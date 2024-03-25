@@ -1,8 +1,11 @@
 import { useDispatch } from "react-redux";
-import { removeTodo } from "../../store/slices/todos-slice";
+import { removeTodo, toggleTodo } from "../../store/slices/todos-slice";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./todo.styles.scss";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 
 const ToDo = ({ todoItem }) => {
   const dispatch = useDispatch();
@@ -17,15 +20,49 @@ const ToDo = ({ todoItem }) => {
     navigate("/add", { state: { currentToDo } });
   };
 
+  const handleCheckChange = (currentToDo) => {
+    console.log(currentToDo.status);
+    dispatch(
+      toggleTodo({
+        ...currentToDo,
+        status:
+          currentToDo.status === "completed" ? "uncompleted" : "completed",
+      })
+    );
+  };
+
   return (
-    <div className={`todo-container ${todoItem.status === 'completed' ? 'done' : ''}`}>
+    <div
+      className={`todo-container ${
+        todoItem.status === "completed" ? "done" : ""
+      }`}
+    >
       <h1>{todoItem.title}</h1>
-      <p>{todoItem.description}</p>
-      <p className="status">{todoItem.status}</p>
-      <div className="todo-icons-container">
-        <FaEdit onClick={() => handleEdit(todoItem)} size={30} />
-        <FaTrash onClick={() => handleDelete(todoItem.id)} size={30} />
-      </div>
+      {todoItem.description ? <h3>{todoItem.description}</h3> : null}
+      <Checkbox
+        checked={todoItem.status === "completed"}
+        onClick={() => handleCheckChange(todoItem)}
+        size="large"
+        style={{ paddingBottom: "25px" }}
+      />
+      <Stack spacing={2} direction={"row"} pb="25px">
+        <Button
+          variant="contained"
+          onClick={() => handleEdit(todoItem)}
+          startIcon={<FaEdit size={20} />}
+          sx={{ width: "50%" }}
+        >
+          Edit
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => handleDelete(todoItem.id)}
+          startIcon={<FaTrash size={20} />}
+          sx={{ width: "50%" }}
+        >
+          Delete
+        </Button>
+      </Stack>
     </div>
   );
 };

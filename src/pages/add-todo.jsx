@@ -4,6 +4,12 @@ import { addTodo, updateToDo } from "../store/slices/todos-slice";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+
 const AddToDo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -27,6 +33,13 @@ const AddToDo = () => {
     navigate("/");
   };
 
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      status: event.target.checked ? "completed" : "uncompleted",
+    });
+  };
+
   useEffect(() => {
     if (location.state) {
       setIsEdit(true);
@@ -41,56 +54,42 @@ const AddToDo = () => {
   }, [location]);
 
   return (
-    <div>
+    <Stack sx={{ width: "40%" }} m={"auto"} pt={"150px"}>
       <h1>Add ToDo</h1>
-      <input
-        type="text"
-        name="title"
-        placeholder="ToDo Title"
-        id="title"
+      <TextField
+        sx={{ marginBottom: "20px" }}
+        label="ToDo Title"
+        required
         onChange={(e) => {
           setFormData({ ...formData, title: e.target.value });
         }}
         value={formData.title}
-      ></input>
-      <textarea
-        name="description"
-        placeholder="Enter ToDo description"
-        id="rescription"
+      />
+      <TextField
+        label="ToDo Description"
         onChange={(e) => {
           setFormData({ ...formData, description: e.target.value });
         }}
         value={formData.description}
+        multiline={true}
       />
-      <div className="radio">
-        <label>
-          <input
-            type="radio"
+
+      <FormControlLabel
+        sx={{ margin: "10px auto" }}
+        control={
+          <Switch
             checked={formData.status === "completed"}
-            value="completed"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setFormData({ ...formData, status: e.target.value });
-            }}
+            onChange={handleChange}
+            inputProps={{ "aria-label": "controlled" }}
           />
-          Completed
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={formData.status === "uncompleted"}
-            value="uncompleted"
-            onChange={(e) => {
-              setFormData({ ...formData, status: e.target.value });
-            }}
-          />
-          Uncompleted
-        </label>
-      </div>
-      <button onClick={addToDoHandler}>
+        }
+        label="Completed"
+      />
+
+      <Button onClick={addToDoHandler} variant="outlined">
         {isEdit ? "Edit ToDo" : "Add ToDo"}
-      </button>
-    </div>
+      </Button>
+    </Stack>
   );
 };
 
