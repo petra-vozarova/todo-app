@@ -81,12 +81,13 @@ const AddToDo = () => {
             checked={formData.status === "completed"}
             onChange={handleChange}
             inputProps={{ "aria-label": "controlled" }}
+            color="success"
           />
         }
         label="Completed"
       />
 
-      <Button onClick={addToDoHandler} variant="outlined">
+      <Button onClick={addToDoHandler} variant="outlined" color="secondary">
         {isEdit ? "Edit ToDo" : "Add ToDo"}
       </Button>
     </Stack>

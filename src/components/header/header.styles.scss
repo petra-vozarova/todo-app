@@ -1,29 +1,40 @@
 .nav-container {
   position: fixed;
-  margin-top: 10px;
+  top: 0;
   width: 100vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px solid black;
+  align-items: center;
+  background: linear-gradient(to right, rgb(218, 161, 161), rgb(154, 207, 154));
+
+  .link {
+    text-decoration: none;
+    color: black;
+  }
 
   h1 {
-    font-size: 35px;
+    font-size: 40px;
     cursor: pointer;
-    margin: 0 35px;
-    color: black;
+    margin: 20px 35px;
+    color: rgb(43, 42, 42);
+    text-decoration: none;
   }
   ul {
     display: flex;
     text-decoration: none;
     gap: 30px;
     padding-right: 30px;
-    color: black;
+    color: rgb(172, 9, 9);
 
     li {
       cursor: pointer;
       text-decoration: none;
       list-style: none;
-      font-size: 25px;
+      font-size: 30px;
+      font-weight: 500;
+
     }
   }
 }

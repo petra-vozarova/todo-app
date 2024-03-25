@@ -7,9 +7,9 @@ import AddTodo from "./pages/add-todo";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Header />
-      <Routes>
+      <Routes >
         <Route exact path="/" element={<Home />} />
         <Route path="/add" element={<AddTodo />} />
       </Routes>

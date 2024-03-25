@@ -44,13 +44,15 @@ const ToDo = ({ todoItem }) => {
         onClick={() => handleCheckChange(todoItem)}
         size="large"
         style={{ paddingBottom: "25px" }}
+        color="success"
       />
       <Stack spacing={2} direction={"row"} pb="25px">
         <Button
           variant="contained"
           onClick={() => handleEdit(todoItem)}
           startIcon={<FaEdit size={20} />}
-          sx={{ width: "50%" }}
+          sx={{ width: "50%", paddingLeft: "10px"}}
+          color="secondary"
         >
           Edit
         </Button>
@@ -58,7 +60,8 @@ const ToDo = ({ todoItem }) => {
           variant="contained"
           onClick={() => handleDelete(todoItem.id)}
           startIcon={<FaTrash size={20} />}
-          sx={{ width: "50%" }}
+          sx={{ width: "50%", paddingRight: "10px"}}
+          color="warning"
         >
           Delete
         </Button>
